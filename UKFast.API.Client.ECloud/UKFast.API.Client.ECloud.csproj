@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>UKFast</Authors>
+    <Company>UKFastUKFast</Company>
+    <Description>Client for interacting with UKFast eCloud</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/ukfast/sdk-dotnet-ecloud/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ukfast/sdk-dotnet-ecloud</PackageProjectUrl>
+    <PackageTags>sdk, client, ukfast, ecloud</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UKFast.API.Client.Core" Version="1.0.3" />
+  </ItemGroup>
+
+</Project>
