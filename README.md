@@ -1,4 +1,4 @@
-# sdk-dotnet-safedns
+# sdk-dotnet-ecloud
 
 This is the official .NET SDK for UKFast eCloud
 
