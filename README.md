@@ -21,7 +21,7 @@ var vmOps = client.VirtualMachineOperations();
 Finally, we'll retrieve all virtual machines using the instance of `IVirtualMachineOperations`:
 
 ```csharp
-IList<VirtualMachine> vms = await zoneOps.GetVirtualMachinesAsync();
+IList<VirtualMachine> vms = await vmOps.GetVirtualMachinesAsync();
 ```
 
 ## Operations
