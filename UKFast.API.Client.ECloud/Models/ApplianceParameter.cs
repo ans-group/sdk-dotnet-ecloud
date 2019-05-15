@@ -5,26 +5,26 @@ using UKFast.API.Client.Models;
 
 namespace UKFast.API.Client.ECloud.Models
 {
+    public enum ParameterType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = "String")]
+        String,
+        [System.Runtime.Serialization.EnumMember(Value = "Numeric")]
+        Numeric,
+        [System.Runtime.Serialization.EnumMember(Value = "Boolean")]
+        Boolean,
+        [System.Runtime.Serialization.EnumMember(Value = "Array")]
+        Array,
+        [System.Runtime.Serialization.EnumMember(Value = "Password")]
+        Password,
+        [System.Runtime.Serialization.EnumMember(Value = "Date")]
+        Date,
+        [System.Runtime.Serialization.EnumMember(Value = "Datetime")]
+        Datetime
+    }
+
     public class ApplianceParameter : ModelBase
     {
-        public enum ParameterType
-        {
-            [System.Runtime.Serialization.EnumMember(Value = "String")]
-            String,
-            [System.Runtime.Serialization.EnumMember(Value = "Numeric")]
-            Numeric,
-            [System.Runtime.Serialization.EnumMember(Value = "Boolean")]
-            Boolean,
-            [System.Runtime.Serialization.EnumMember(Value = "Array")]
-            Array,
-            [System.Runtime.Serialization.EnumMember(Value = "Password")]
-            Password,
-            [System.Runtime.Serialization.EnumMember(Value = "Date")]
-            Date,
-            [System.Runtime.Serialization.EnumMember(Value = "Datetime")]
-            Datetime
-        }
-
         [Newtonsoft.Json.JsonProperty("id")]
         public string ID { get; set; }
 
