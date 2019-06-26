@@ -31,7 +31,7 @@ namespace UKFast.API.Client.ECloud.Models.Request
         public int HDD { get; set; }
 
         [Newtonsoft.Json.JsonProperty("hdd_disks")]
-        public IEnumerable<CreateVirtualMachineRequestParameter> HDDDisks { get; set; }
+        public IEnumerable<CreateVirtualMachineRequestDisk> HDDDisks { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name")]
         public string Name { get; set; }
