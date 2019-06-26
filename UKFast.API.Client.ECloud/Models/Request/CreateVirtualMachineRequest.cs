@@ -18,6 +18,9 @@ namespace UKFast.API.Client.ECloud.Models.Request
         [Newtonsoft.Json.JsonProperty("appliance_id")]
         public string ApplianceID { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("role")]
+        public string Role { get; set; }
+
         [Newtonsoft.Json.JsonProperty("parameters")]
         public IEnumerable<CreateVirtualMachineRequestParameter> Parameters { get; set; }
 
