@@ -8,10 +8,7 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class ApplianceOperations<T> : ECloudOperations, IApplianceOperations<T> where T : Appliance
     {
-        public ApplianceOperations(IUKFastECloudClient client) : base(client)
-        {
-            this._resource = this._resource + "/v1/appliances";
-        }
+        public ApplianceOperations(IUKFastECloudClient client) : base(client) { }
 
         public async Task<IList<T>> GetAppliancesAsync(ClientRequestParameters parameters = null)
         {
@@ -20,7 +17,7 @@ namespace UKFast.API.Client.ECloud.Operations
 
         public async Task<Paginated<T>> GetAppliancesPaginatedAsync(ClientRequestParameters parameters = null)
         {
-            return await this.Client.GetPaginatedAsync<T>(_resource, parameters);
+            return await this.Client.GetPaginatedAsync<T>("/ecloud/v1/appliances", parameters);
         }
 
         public async Task<T> GetApplianceAsync(string applianceID)
@@ -30,7 +27,7 @@ namespace UKFast.API.Client.ECloud.Operations
                 throw new Client.Exception.UKFastClientValidationException("Invalid appliance id");
             }
 
-            return await this.Client.GetAsync<T>($"{_resource }/{applianceID}");
+            return await this.Client.GetAsync<T>($"/ecloud/v1/appliances/{applianceID}");
         }
     }
 }
