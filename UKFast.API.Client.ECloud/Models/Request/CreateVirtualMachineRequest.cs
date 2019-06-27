@@ -74,7 +74,7 @@ namespace UKFast.API.Client.ECloud.Models.Request
         public bool ExternalIPRequired { get; set; }
 
         [Newtonsoft.Json.JsonProperty("ssh_keys", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public IEnumerable<string> SSHKeys { get; set; } = null;
+        public IEnumerable<string> SSHKeys { get; set; };
 
         [Newtonsoft.Json.JsonProperty("encrypt", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool Encrypt { get; set; }
