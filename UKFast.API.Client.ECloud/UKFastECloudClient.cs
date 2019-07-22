@@ -104,6 +104,11 @@ namespace UKFast.API.Client.ECloud
             return new PodTemplateOperations<Template>(this);
         }
 
+        public IPodGPUProfileOperations<GPUProfile> PodGPUProfileOperations()
+        {
+            return new PodGPUProfileOperations<GPUProfile>(this);
+        }
+
         public IApplianceOperations<Appliance> ApplianceOperations()
         {
             return new ApplianceOperations<Appliance>(this);

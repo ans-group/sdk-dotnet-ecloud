@@ -78,6 +78,12 @@ namespace UKFast.API.Client.ECloud.Models.Request
 
         [Newtonsoft.Json.JsonProperty("encrypt", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool Encrypt { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ad_domain_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int ADDomainID { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("gpu_profile", NullValueHandling = NullValueHandling.Ignore)]
+        public string GPUProfileID { get; set; }
     }
 
     public class CreateVirtualMachineRequestParameter
