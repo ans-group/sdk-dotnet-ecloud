@@ -76,8 +76,8 @@ namespace UKFast.API.Client.ECloud.Models.Request
         [Newtonsoft.Json.JsonProperty("ssh_keys", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IEnumerable<string> SSHKeys { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("encrypt", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool Encrypt { get; set; }
+        [Newtonsoft.Json.JsonProperty("encrypt", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Encrypt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("ad_domain_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int ADDomainID { get; set; }
