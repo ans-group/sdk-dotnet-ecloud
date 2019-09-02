@@ -92,7 +92,7 @@ namespace UKFast.API.Client.ECloud.Models.Request
         public string Key { get; set; }
 
         [Newtonsoft.Json.JsonProperty("value")]
-        public string Value { get; set; }
+        public object Value { get; set; }
     }
 
     public class CreateVirtualMachineRequestDisk

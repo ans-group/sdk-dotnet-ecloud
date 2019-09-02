@@ -8,8 +8,8 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/ukfast/sdk-dotnet-ecloud/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ukfast/sdk-dotnet-ecloud</PackageProjectUrl>
     <PackageTags>sdk, client, ukfast, ecloud</PackageTags>
-    <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <Version>1.0.7</Version>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
