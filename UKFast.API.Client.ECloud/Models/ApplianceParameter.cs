@@ -13,14 +13,8 @@ namespace UKFast.API.Client.ECloud.Models
         Numeric,
         [System.Runtime.Serialization.EnumMember(Value = "Boolean")]
         Boolean,
-        [System.Runtime.Serialization.EnumMember(Value = "Array")]
-        Array,
         [System.Runtime.Serialization.EnumMember(Value = "Password")]
         Password,
-        [System.Runtime.Serialization.EnumMember(Value = "Date")]
-        Date,
-        [System.Runtime.Serialization.EnumMember(Value = "Datetime")]
-        Datetime
     }
 
     public class ApplianceParameter : ModelBase
