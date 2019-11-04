@@ -26,9 +26,9 @@ namespace UKFast.API.Client.ECloud.Models
         public int Capacity { get; set; }
 
         [Newtonsoft.Json.JsonProperty("allocated")]
-        public int Allocated { get; set; }
+        public int? Allocated { get; set; }
 
         [Newtonsoft.Json.JsonProperty("available")]
-        public int Available { get; set; }
+        public int? Available { get; set; }
     }
 }
