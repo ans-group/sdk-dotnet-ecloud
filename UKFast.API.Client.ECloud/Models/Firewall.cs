@@ -12,7 +12,9 @@ namespace UKFast.API.Client.ECloud.Models
         [System.Runtime.Serialization.EnumMember(Value = "Master")]
         Master,
         [System.Runtime.Serialization.EnumMember(Value = "Slave")]
-        Slave
+        Slave,
+		[System.Runtime.Serialization.EnumMember(Value = "Unknown")]
+		Unknown
     }
 
     public class Firewall : ModelBase
