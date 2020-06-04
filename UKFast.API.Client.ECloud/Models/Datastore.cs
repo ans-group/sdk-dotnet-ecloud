@@ -5,6 +5,21 @@ using UKFast.API.Client.Models;
 
 namespace UKFast.API.Client.ECloud.Models
 {
+    public enum DatastoreStatus
+    {
+        [System.Runtime.Serialization.EnumMember(Value = "Completed")]
+        Completed,
+
+        [System.Runtime.Serialization.EnumMember(Value = "Failed")]
+        Failed,
+
+        [System.Runtime.Serialization.EnumMember(Value = "Expanding")]
+        Expanding,
+
+        [System.Runtime.Serialization.EnumMember(Value = "Queued")]
+        Queued
+    }
+
     public class Datastore : ModelBase
     {
         [Newtonsoft.Json.JsonProperty("id")]
@@ -20,7 +35,8 @@ namespace UKFast.API.Client.ECloud.Models
         public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("status")]
-        public string Status { get; set; }
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public DatastoreStatus Status { get; set; }
 
         [Newtonsoft.Json.JsonProperty("capacity")]
         public int Capacity { get; set; }

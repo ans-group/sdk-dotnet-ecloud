@@ -24,5 +24,11 @@ namespace UKFast.API.Client.ECloud.Models
 
         [Newtonsoft.Json.JsonProperty("platform")]
         public string Platform { get; set; }
-    }
+
+        [Newtonsoft.Json.JsonProperty("operating_system")]
+        public string OperatingSystem { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("solution_id")]
+        public string SolutionID { get; set; }
+	}
 }
