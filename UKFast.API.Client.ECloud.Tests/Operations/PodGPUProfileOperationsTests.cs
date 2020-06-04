@@ -12,6 +12,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
     [TestClass]
     public class PodGPUProfileOperationsTests
     {
+		[TestMethod]
         public async Task GetPodGPUProfilesAsync_ExpectedResult()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -36,9 +37,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
-            client.GetPaginatedAsync<GPUProfile>("/ecloud/v1/pods/123/gpu_profiles").Returns(Task.Run(() =>
+            client.GetPaginatedAsync<GPUProfile>("/ecloud/v1/pods/123/gpu-profiles").Returns(Task.Run(() =>
             {
-                return new Paginated<GPUProfile>(client, "/ecloud/v1/pods/123/gpu_profiles", null, new Response.ClientResponse<System.Collections.Generic.IList<GPUProfile>>()
+                return new Paginated<GPUProfile>(client, "/ecloud/v1/pods/123/gpu-profiles", null, new Response.ClientResponse<System.Collections.Generic.IList<GPUProfile>>()
                 {
                     Body = new Response.ClientResponseBody<System.Collections.Generic.IList<GPUProfile>>()
                     {
