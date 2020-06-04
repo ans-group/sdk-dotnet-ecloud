@@ -109,6 +109,11 @@ namespace UKFast.API.Client.ECloud
             return new PodGPUProfileOperations<GPUProfile>(this);
         }
 
+        public IActiveDirectoryDomainOperations<ActiveDirectoryDomain> ActiveDirectoryDomainOperations()
+        {
+            return new ActiveDirectoryDomainOperations<ActiveDirectoryDomain>(this);
+        }
+
         public IApplianceOperations<Appliance> ApplianceOperations()
         {
             return new ApplianceOperations<Appliance>(this);
