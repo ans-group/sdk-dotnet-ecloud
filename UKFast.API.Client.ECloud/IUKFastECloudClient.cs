@@ -26,5 +26,7 @@ namespace UKFast.API.Client.ECloud
         IApplianceOperations<Appliance> ApplianceOperations();
         IApplianceParameterOperations<ApplianceParameter> ApplianceParameterOperations();
         ICreditOperations<Credit> CreditOperations();
+        IPodGPUProfileOperations<GPUProfile> PodGPUProfileOperations();
+
     }
 }
