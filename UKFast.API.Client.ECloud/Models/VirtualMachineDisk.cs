@@ -19,7 +19,7 @@ namespace UKFast.API.Client.ECloud.Models
         [Newtonsoft.Json.JsonProperty("key")]
         public int Key { get; set; }
 
-		[Newtonsoft.Json.JsonProperty("capacity")]
+        [Newtonsoft.Json.JsonProperty("capacity")]
         public int Capacity { get; set; }
     }
 }
