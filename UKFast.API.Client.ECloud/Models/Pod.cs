@@ -27,5 +27,8 @@ namespace UKFast.API.Client.ECloud.Models
 
         [Newtonsoft.Json.JsonProperty("appliances")]
         public bool Appliances { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("gpu")]
+        public bool GPU { get; set; }
     }
 }

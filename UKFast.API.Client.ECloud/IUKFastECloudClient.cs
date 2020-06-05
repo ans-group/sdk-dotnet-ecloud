@@ -23,6 +23,8 @@ namespace UKFast.API.Client.ECloud
         IPodOperations<Pod> PodOperations();
         IPodApplianceOperations<Appliance> PodApplianceOperations();
         IPodTemplateOperations<Template> PodTemplateOperations();
+        IPodGPUProfileOperations<GPUProfile> PodGPUProfileOperations();
+        IActiveDirectoryDomainOperations<ActiveDirectoryDomain> ActiveDirectoryDomainOperations();
         IApplianceOperations<Appliance> ApplianceOperations();
         IApplianceParameterOperations<ApplianceParameter> ApplianceParameterOperations();
         ICreditOperations<Credit> CreditOperations();

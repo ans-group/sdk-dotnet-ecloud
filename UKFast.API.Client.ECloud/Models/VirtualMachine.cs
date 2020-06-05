@@ -63,5 +63,11 @@ namespace UKFast.API.Client.ECloud.Models
 
         [Newtonsoft.Json.JsonProperty("hdd_disks")]
         public VirtualMachineDisk[] HDDDisks { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("encrypted")]
+        public bool Encrypted { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("role")]
+        public string Role { get; set; }
     }
 }

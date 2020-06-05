@@ -26,7 +26,7 @@ namespace UKFast.API.Client.ECloud.Models.Request
         public IEnumerable<CreateVirtualMachineRequestParameter> Parameters { get; set; } = null;
 
         [Newtonsoft.Json.JsonProperty("cpu")]
-        public int cpu { get; set; }
+        public int CPU { get; set; }
 
         [Newtonsoft.Json.JsonProperty("ram")]
         public int RAM { get; set; }
