@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
-using UKFast.API.Client.ECloud.Models.Request;
+using UKFast.API.Client.ECloud.Models.V1;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
 
@@ -11,7 +8,9 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class SolutionHostOperations<T> : ECloudOperations, ISolutionHostOperations<T> where T : Host
     {
-        public SolutionHostOperations(IUKFastECloudClient client) : base(client) { }
+        public SolutionHostOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
 
         public async Task<IList<T>> GetSolutionHostsAsync(int solutionID, ClientRequestParameters parameters = null)
         {

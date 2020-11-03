@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
-using UKFast.API.Client.ECloud.Models.Request;
+using UKFast.API.Client.ECloud.Models.V1;
+using UKFast.API.Client.ECloud.Models.V1.Request;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
 
@@ -9,7 +9,9 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class VirtualMachineOperations<T> : ECloudOperations, IVirtualMachineOperations<T> where T : VirtualMachine
     {
-        public VirtualMachineOperations(IUKFastECloudClient client) : base(client) { }
+        public VirtualMachineOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
 
         public async Task<int> CreateVirtualMachineAsync(CreateVirtualMachineRequest req)
         {

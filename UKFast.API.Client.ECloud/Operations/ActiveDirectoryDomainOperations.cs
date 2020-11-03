@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
+using UKFast.API.Client.ECloud.Models.V1;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
 
@@ -8,7 +8,9 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class ActiveDirectoryDomainOperations<T> : ECloudOperations, IActiveDirectoryDomainOperations<T> where T : ActiveDirectoryDomain
     {
-        public ActiveDirectoryDomainOperations(IUKFastECloudClient client) : base(client) { }
+        public ActiveDirectoryDomainOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
 
         public async Task<IList<T>> GetActiveDirectoryDomainsAsync(ClientRequestParameters parameters = null)
         {

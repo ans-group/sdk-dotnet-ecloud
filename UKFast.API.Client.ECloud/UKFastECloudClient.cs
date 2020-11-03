@@ -1,6 +1,5 @@
-﻿using System;
+﻿using UKFast.API.Client.ECloud.Models.V1;
 using UKFast.API.Client.ECloud.Operations;
-using UKFast.API.Client.ECloud.Models;
 
 namespace UKFast.API.Client.ECloud
 {

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UKFast.API.Client.ECloud.Models.Request
+﻿namespace UKFast.API.Client.ECloud.Models.V1.Request
 {
     public enum CreateVirtualMachineTemplateRequestType
     {
         [System.Runtime.Serialization.EnumMember(Value = "solution")]
         Solution,
+
         [System.Runtime.Serialization.EnumMember(Value = "pod")]
         Pod
     }

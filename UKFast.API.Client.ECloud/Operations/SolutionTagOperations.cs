@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
-using UKFast.API.Client.ECloud.Models.Request;
+using UKFast.API.Client.ECloud.Models.V1;
+using UKFast.API.Client.ECloud.Models.V1.Request;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
 
@@ -9,7 +9,9 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class SolutionTagOperations<T> : ECloudOperations, ISolutionTagOperations<T> where T : Tag
     {
-        public SolutionTagOperations(IUKFastECloudClient client) : base(client) { }
+        public SolutionTagOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
 
         public async Task<string> CreateSolutionTagAsync(int solutionID, CreateTagRequest req)
         {

@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace UKFast.API.Client.ECloud.Models.Request
+namespace UKFast.API.Client.ECloud.Models.V1.Request
 {
     public enum UpdateVirtualMachineRequestDiskState
     {
         [System.Runtime.Serialization.EnumMember(Value = "present")]
         Present,
+
         [System.Runtime.Serialization.EnumMember(Value = "absent")]
         Absent
     }

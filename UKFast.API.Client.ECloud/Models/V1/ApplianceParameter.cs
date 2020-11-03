@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UKFast.API.Client.Models;
+﻿using UKFast.API.Client.Models;
 
-namespace UKFast.API.Client.ECloud.Models
+namespace UKFast.API.Client.ECloud.Models.V1
 {
     public enum ParameterType
     {
         [System.Runtime.Serialization.EnumMember(Value = "String")]
         String,
+
         [System.Runtime.Serialization.EnumMember(Value = "Numeric")]
         Numeric,
+
         [System.Runtime.Serialization.EnumMember(Value = "Boolean")]
         Boolean,
+
         [System.Runtime.Serialization.EnumMember(Value = "Password")]
         Password,
     }

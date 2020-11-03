@@ -2,9 +2,8 @@
 using NSubstitute;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
-using UKFast.API.Client.ECloud.Models.Request;
-using UKFast.API.Client.ECloud.Operations;
+using UKFast.API.Client.ECloud.Models.V1;
+using UKFast.API.Client.ECloud.Models.V1.Request;
 using UKFast.API.Client.Exception;
 using UKFast.API.Client.Models;
 
