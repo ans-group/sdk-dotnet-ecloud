@@ -17,8 +17,4 @@
     <PackageReference Include="UKFast.API.Client.Core" Version="1.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\V2\" />
-  </ItemGroup>
-
 </Project>
