@@ -1,5 +1,7 @@
 ﻿using UKFast.API.Client.ECloud.Models.V1;
+using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
+using Network = UKFast.API.Client.ECloud.Models.V1.Network;
 
 namespace UKFast.API.Client.ECloud
 {
@@ -126,6 +128,11 @@ namespace UKFast.API.Client.ECloud
         public ICreditOperations<Credit> CreditOperations()
         {
             return new CreditOperations<Credit>(this);
+        }
+
+        public IAvailabilityZoneOperations<AvailabilityZone> AvailabilityZoneOperations()
+        {
+            return new AvailabilityZoneOperations<AvailabilityZone>(this);
         }
     }
 }
