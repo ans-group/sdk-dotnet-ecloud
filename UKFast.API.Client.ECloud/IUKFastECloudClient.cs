@@ -54,5 +54,11 @@ namespace UKFast.API.Client.ECloud
         ICreditOperations<Credit> CreditOperations();
 
         IAvailabilityZoneOperations<AvailabilityZone> AvailabilityZoneOperations();
+
+        IDHCPOperations<DHCP> DHCPOperations();
+
+        IFirewallRuleOperations<FirewallRule> FirewallRuleOperations();
+
+        IFloatingOperations<FloatingIP> FloatingIPOperations();
     }
 }

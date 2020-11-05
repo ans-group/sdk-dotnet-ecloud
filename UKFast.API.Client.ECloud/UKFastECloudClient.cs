@@ -134,5 +134,20 @@ namespace UKFast.API.Client.ECloud
         {
             return new AvailabilityZoneOperations<AvailabilityZone>(this);
         }
+
+        public IDHCPOperations<DHCP> DHCPOperations()
+        {
+            return new DHCPOperations<DHCP>(this);
+        }
+
+        public IFirewallRuleOperations<FirewallRule> FirewallRuleOperations()
+        {
+            return new FirewallRuleOperations<FirewallRule>(this);
+        }
+
+        public IFloatingOperations<FloatingIP> FloatingIPOperations()
+        {
+            return new FloatingIPOperations<FloatingIP>(this);
+        }
     }
 }
