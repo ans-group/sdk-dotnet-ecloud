@@ -60,5 +60,7 @@ namespace UKFast.API.Client.ECloud
         IFirewallRuleOperations<FirewallRule> FirewallRuleOperations();
 
         IFloatingOperations<FloatingIP> FloatingIPOperations();
+
+        IInstanceOperations<Instance> InstanceOperations();
     }
 }

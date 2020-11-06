@@ -149,5 +149,10 @@ namespace UKFast.API.Client.ECloud
         {
             return new FloatingIPOperations<FloatingIP>(this);
         }
+
+        public IInstanceOperations<Instance> InstanceOperations()
+        {
+            return new InstanceOperations<Instance>(this);
+        }
     }
 }
