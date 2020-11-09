@@ -69,5 +69,7 @@ namespace UKFast.API.Client.ECloud
         IRegionOperations<Region> RegionOperations();
 
         IVPNOperations<VPN> VPNOperations();
+
+        IVPCOperations<VPC> VPCOperations();
     }
 }

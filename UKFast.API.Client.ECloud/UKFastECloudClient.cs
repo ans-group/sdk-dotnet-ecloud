@@ -173,5 +173,10 @@ namespace UKFast.API.Client.ECloud
         {
             return new VPNOperations<VPN>(this);
         }
+
+        public IVPCOperations<VPC> VPCOperations()
+        {
+            return new VPCOperations<VPC>(this);
+        }
     }
 }
