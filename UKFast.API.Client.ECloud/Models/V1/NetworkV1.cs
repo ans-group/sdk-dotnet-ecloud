@@ -2,7 +2,7 @@
 
 namespace UKFast.API.Client.ECloud.Models.V1
 {
-    public class Network : ModelBase
+    public class NetworkV1 : ModelBase
     {
         [Newtonsoft.Json.JsonProperty("id")]
         public int ID { get; set; }

@@ -6,7 +6,7 @@ using UKFast.API.Client.Request;
 
 namespace UKFast.API.Client.ECloud.Operations
 {
-    public interface ISolutionNetworkOperations<T> where T : Network
+    public interface ISolutionNetworkOperations<T> where T : NetworkV1
     {
         Task<IList<T>> GetSolutionNetworksAsync(int solutionID, ClientRequestParameters parameters = null);
 

@@ -6,7 +6,7 @@ using UKFast.API.Client.Request;
 
 namespace UKFast.API.Client.ECloud.Operations
 {
-    public class SolutionNetworkOperations<T> : ECloudOperations, ISolutionNetworkOperations<T> where T : Network
+    public class SolutionNetworkOperations<T> : ECloudOperations, ISolutionNetworkOperations<T> where T : NetworkV1
     {
         public SolutionNetworkOperations(IUKFastECloudClient client) : base(client)
         {
