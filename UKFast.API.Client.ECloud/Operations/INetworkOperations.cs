@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
-using Network = UKFast.API.Client.ECloud.Models.V2.Network;
 
 namespace UKFast.API.Client.ECloud.Operations
 {

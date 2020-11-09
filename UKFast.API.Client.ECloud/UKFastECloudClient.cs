@@ -158,5 +158,10 @@ namespace UKFast.API.Client.ECloud
         {
             return new NetworkOperations<Network>(this);
         }
+
+        public IRouterOperations<Router> RouterOperations()
+        {
+            return new RouterOperations<Router>(this);
+        }
     }
 }
