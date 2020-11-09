@@ -163,5 +163,15 @@ namespace UKFast.API.Client.ECloud
         {
             return new RouterOperations<Router>(this);
         }
+
+        public IRegionOperations<Region> RegionOperations()
+        {
+            return new RegionOperations<Region>(this);
+        }
+
+        public IVPNOperations<VPN> VPNOperations()
+        {
+            return new VPNOperations<VPN>(this);
+        }
     }
 }
