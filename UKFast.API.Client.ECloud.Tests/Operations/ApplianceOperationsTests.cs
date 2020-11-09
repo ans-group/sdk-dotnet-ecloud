@@ -1,12 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using UKFast.API.Client.ECloud.Models.V1;
+using UKFast.API.Client.ECloud.Operations;
 using UKFast.API.Client.Exception;
 using UKFast.API.Client.Models;
 
-namespace UKFast.API.Client.ECloud.Operations.Tests
+namespace UKFast.API.Client.ECloud.Tests.Operations
 {
     [TestClass]
     public class ApplianceOperationsTests
