@@ -65,7 +65,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
-            string fwRuleID = "00000000-0000-0000-0000-000000000000";
+            string fwRuleID = "fwr-abcd1234";
 
             client.GetAsync<FirewallRule>($"/ecloud/v2/firewall-rules/{fwRuleID}").Returns(new FirewallRule()
             {
@@ -75,7 +75,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new FirewallRuleOperations<FirewallRule>(client);
             var fwRule = await ops.GetFirewallRuleAsync(fwRuleID);
 
-            Assert.AreEqual(fwRuleID, fwRule.ID);
+            Assert.AreEqual("fwr-abcd1234", fwRule.ID);
         }
 
         [TestMethod]

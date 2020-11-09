@@ -66,7 +66,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
-            string azId = "00000000-0000-0000-0000-000000000000";
+            string azId = "az-abcd1234";
 
             client.GetAsync<AvailabilityZone>($"/ecloud/v2/availability-zones/{azId}").Returns(new AvailabilityZone()
             {
@@ -76,7 +76,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new AvailabilityZoneOperations<AvailabilityZone>(client);
             var az = await ops.GetAvailabilityZoneAsync(azId);
 
-            Assert.AreEqual(azId, az.ID);
+            Assert.AreEqual("az-abcd1234", az.ID);
         }
 
         [TestMethod]

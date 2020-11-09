@@ -66,7 +66,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
-            string floatingIPID = "00000000-0000-0000-0000-000000000000";
+            string floatingIPID = "fip-abcd1234";
 
             client.GetAsync<FloatingIP>($"/ecloud/v2/floating-ips/{floatingIPID}").Returns(new FloatingIP()
             {
@@ -76,7 +76,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new FloatingIPOperations<FloatingIP>(client);
             var floatingIP = await ops.GetFloatingIPAsync(floatingIPID);
 
-            Assert.AreEqual(floatingIPID, floatingIP.ID);
+            Assert.AreEqual("fip-abcd1234", floatingIP.ID);
         }
 
         [TestMethod]

@@ -89,7 +89,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
-            string instanceID = "00000000-0000-0000-0000-000000000000";
+            string instanceID = "i-abcd1234";
 
             client.GetAsync<Instance>($"/ecloud/v2/instances/{instanceID}").Returns(new Instance()
             {
@@ -99,7 +99,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(client);
             var instance = await ops.GetInstanceAsync(instanceID);
 
-            Assert.AreEqual(instanceID, instance.ID);
+            Assert.AreEqual("i-abcd1234", instance.ID);
         }
 
         [TestMethod]
@@ -121,9 +121,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.UpdateInstanceAsync("00000000-0000-0000-0000-00000000000", req);
+            await ops.UpdateInstanceAsync("i-abcd1234", req);
 
-            await client.Received().PatchAsync("/ecloud/v2/instances/00000000-0000-0000-0000-00000000000", req);
+            await client.Received().PatchAsync("/ecloud/v2/instances/i-abcd1234", req);
         }
 
         [TestMethod]
@@ -140,9 +140,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.DeleteInstanceAsync("00000000-0000-0000-0000-00000000000");
+            await ops.DeleteInstanceAsync("i-abcd1234");
 
-            await client.Received().DeleteAsync("/ecloud/v2/instances/00000000-0000-0000-0000-00000000000");
+            await client.Received().DeleteAsync("/ecloud/v2/instances/i-abcd1234");
         }
 
         [TestMethod]
@@ -159,9 +159,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.PowerOnInstanceAsync("00000000-0000-0000-0000-000000000000");
+            await ops.PowerOnInstanceAsync("i-abcd1234");
 
-            await client.Received().PutAsync("/ecloud/v2/instances/00000000-0000-0000-0000-000000000000/power-on");
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/power-on");
         }
 
         [TestMethod]
@@ -178,9 +178,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.PowerOffInstanceAsync("00000000-0000-0000-0000-000000000000");
+            await ops.PowerOffInstanceAsync("i-abcd1234");
 
-            await client.Received().PutAsync("/ecloud/v2/instances/00000000-0000-0000-0000-000000000000/power-off");
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/power-off");
         }
 
         [TestMethod]
@@ -197,9 +197,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.PowerResetInstanceAsync("00000000-0000-0000-0000-000000000000");
+            await ops.PowerResetInstanceAsync("i-abcd1234");
 
-            await client.Received().PutAsync("/ecloud/v2/instances/00000000-0000-0000-0000-000000000000/power-reset");
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/power-reset");
         }
 
         [TestMethod]
@@ -216,9 +216,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.PowerShutdownInstanceAsync("00000000-0000-0000-0000-000000000000");
+            await ops.PowerShutdownInstanceAsync("i-abcd1234");
 
-            await client.Received().PutAsync("/ecloud/v2/instances/00000000-0000-0000-0000-000000000000/power-shutdown");
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/power-shutdown");
         }
 
         [TestMethod]
@@ -235,9 +235,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             var ops = new InstanceOperations<Instance>(client);
-            await ops.PowerRestartInstanceAsync("00000000-0000-0000-0000-000000000000");
+            await ops.PowerRestartInstanceAsync("i-abcd1234");
 
-            await client.Received().PutAsync("/ecloud/v2/instances/00000000-0000-0000-0000-000000000000/power-restart");
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/power-restart");
         }
 
         [TestMethod]

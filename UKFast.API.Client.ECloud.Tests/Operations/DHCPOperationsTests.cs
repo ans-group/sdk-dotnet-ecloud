@@ -64,7 +64,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
-            string dhcpID = "00000000-0000-0000-0000-000000000000";
+            string dhcpID = "dhcp-abcd1234";
 
             client.GetAsync<DHCP>($"/ecloud/v2/dhcps/{dhcpID}").Returns(new DHCP()
             {
@@ -72,9 +72,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             });
 
             var ops = new DHCPOperations<DHCP>(client);
-            var appliance = await ops.GetDHCPAsync(dhcpID);
+            var dhcp = await ops.GetDHCPAsync(dhcpID);
 
-            Assert.AreEqual(dhcpID, appliance.ID);
+            Assert.AreEqual("dhcp-abcd1234", dhcp.ID);
         }
 
         [TestMethod]
