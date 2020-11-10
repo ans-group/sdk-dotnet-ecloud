@@ -71,5 +71,7 @@ namespace UKFast.API.Client.ECloud
         IVPNOperations<VPN> VPNOperations();
 
         IVPCOperations<VPC> VPCOperations();
+
+        ILoadBalancerOperations<LoadBalancerCluster> LoadBalancerOperations();
     }
 }

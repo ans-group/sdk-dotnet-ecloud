@@ -178,5 +178,10 @@ namespace UKFast.API.Client.ECloud
         {
             return new VPCOperations<VPC>(this);
         }
+
+        public ILoadBalancerOperations<LoadBalancerCluster> LoadBalancerOperations()
+        {
+            return new LoadBalancerOperations<LoadBalancerCluster>(this);
+        }
     }
 }
