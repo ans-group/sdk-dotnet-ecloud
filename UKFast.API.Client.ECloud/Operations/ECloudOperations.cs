@@ -4,6 +4,8 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public abstract class ECloudOperations : OperationsBase<IUKFastECloudClient>
     {
-        public ECloudOperations(IUKFastECloudClient client) : base(client) { }
+        public ECloudOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
     }
 }

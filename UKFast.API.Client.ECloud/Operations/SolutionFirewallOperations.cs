@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
-using UKFast.API.Client.ECloud.Models.Request;
+using UKFast.API.Client.ECloud.Models.V1;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
 
@@ -11,7 +8,9 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class SolutionFirewallOperations<T> : ECloudOperations, ISolutionFirewallOperations<T> where T : Firewall
     {
-        public SolutionFirewallOperations(IUKFastECloudClient client) : base(client) { }
+        public SolutionFirewallOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
 
         public async Task<IList<T>> GetSolutionFirewallsAsync(int solutionID, ClientRequestParameters parameters = null)
         {

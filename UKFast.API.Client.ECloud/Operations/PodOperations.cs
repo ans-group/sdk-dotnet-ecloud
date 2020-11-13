@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UKFast.API.Client.ECloud.Models;
+using UKFast.API.Client.ECloud.Models.V1;
 using UKFast.API.Client.Models;
 using UKFast.API.Client.Request;
 
@@ -8,7 +8,9 @@ namespace UKFast.API.Client.ECloud.Operations
 {
     public class PodOperations<T> : ECloudOperations, IPodOperations<T> where T : Pod
     {
-        public PodOperations(IUKFastECloudClient client) : base(client) { }
+        public PodOperations(IUKFastECloudClient client) : base(client)
+        {
+        }
 
         public async Task<IList<T>> GetPodsAsync(ClientRequestParameters parameters = null)
         {

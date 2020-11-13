@@ -1,6 +1,6 @@
-﻿using System;
+﻿using UKFast.API.Client.ECloud.Models.V1;
+using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
-using UKFast.API.Client.ECloud.Models;
 
 namespace UKFast.API.Client.ECloud
 {
@@ -54,9 +54,9 @@ namespace UKFast.API.Client.ECloud
             return new SolutionSiteOperations<Site>(this);
         }
 
-        public ISolutionNetworkOperations<Network> SolutionNetworkOperations()
+        public ISolutionNetworkOperations<NetworkV1> SolutionNetworkOperations()
         {
-            return new SolutionNetworkOperations<Network>(this);
+            return new SolutionNetworkOperations<NetworkV1>(this);
         }
 
         public ISolutionFirewallOperations<Firewall> SolutionFirewallOperations()
@@ -127,6 +127,61 @@ namespace UKFast.API.Client.ECloud
         public ICreditOperations<Credit> CreditOperations()
         {
             return new CreditOperations<Credit>(this);
+        }
+
+        public IAvailabilityZoneOperations<AvailabilityZone> AvailabilityZoneOperations()
+        {
+            return new AvailabilityZoneOperations<AvailabilityZone>(this);
+        }
+
+        public IDHCPOperations<DHCP> DHCPOperations()
+        {
+            return new DHCPOperations<DHCP>(this);
+        }
+
+        public IFirewallRuleOperations<FirewallRule> FirewallRuleOperations()
+        {
+            return new FirewallRuleOperations<FirewallRule>(this);
+        }
+
+        public IFloatingOperations<FloatingIP> FloatingIPOperations()
+        {
+            return new FloatingIPOperations<FloatingIP>(this);
+        }
+
+        public IInstanceOperations<Instance> InstanceOperations()
+        {
+            return new InstanceOperations<Instance>(this);
+        }
+
+        public INetworkOperations<Network> NetworkOperations()
+        {
+            return new NetworkOperations<Network>(this);
+        }
+
+        public IRouterOperations<Router> RouterOperations()
+        {
+            return new RouterOperations<Router>(this);
+        }
+
+        public IRegionOperations<Region> RegionOperations()
+        {
+            return new RegionOperations<Region>(this);
+        }
+
+        public IVPNOperations<VPN> VPNOperations()
+        {
+            return new VPNOperations<VPN>(this);
+        }
+
+        public IVPCOperations<VPC> VPCOperations()
+        {
+            return new VPCOperations<VPC>(this);
+        }
+
+        public ILoadBalancerOperations<LoadBalancerCluster> LoadBalancerOperations()
+        {
+            return new LoadBalancerOperations<LoadBalancerCluster>(this);
         }
     }
 }
