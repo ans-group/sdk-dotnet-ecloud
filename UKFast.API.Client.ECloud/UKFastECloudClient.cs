@@ -144,6 +144,11 @@ namespace UKFast.API.Client.ECloud
             return new FirewallRuleOperations<FirewallRule>(this);
         }
 
+        public IFirewallPolicyOperations<FirewallPolicy> FirewallPolicyOperations()
+        {
+            return new FirewallPolicyOperations<FirewallPolicy>(this);
+        }
+
         public IFloatingOperations<FloatingIP> FloatingIPOperations()
         {
             return new FloatingIPOperations<FloatingIP>(this);

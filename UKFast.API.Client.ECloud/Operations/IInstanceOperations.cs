@@ -21,6 +21,10 @@ namespace UKFast.API.Client.ECloud.Operations
 
         Task DeleteInstanceAsync(string instanceID);
 
+        Task LockInstanceAsync(string instanceID);
+
+        Task UnlockInstanceAsync(string instanceID);
+
         Task PowerOnInstanceAsync(string instanceID);
 
         Task PowerOffInstanceAsync(string instanceID);
@@ -30,5 +34,17 @@ namespace UKFast.API.Client.ECloud.Operations
         Task PowerShutdownInstanceAsync(string instanceID);
 
         Task PowerRestartInstanceAsync(string instanceID);
+
+        Task<IList<Volume>> GetInstanceVolumesAsync(string instanceID, ClientRequestParameters parameters = null);
+
+        Task<Paginated<Volume>> GetInstanceVolumesPaginatedAsync(string instanceID, ClientRequestParameters parameters = null);
+
+        Task<IList<Credential>> GetInstanceCredentialsAsync(string instanceID, ClientRequestParameters parameters = null);
+
+        Task<Paginated<Credential>> GetInstanceCredentialsPaginatedAsync(string instanceID, ClientRequestParameters parameters = null);
+
+        Task<IList<NIC>> GetInstanceNICsAsync(string instanceID, ClientRequestParameters parameters = null);
+
+        Task<Paginated<NIC>> GetInstanceNICsPaginatedAsync(string instanceID, ClientRequestParameters parameters = null);
     }
 }

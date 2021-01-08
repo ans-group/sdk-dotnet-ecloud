@@ -154,6 +154,44 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task LockInstanceAsync_ExpectedResult()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            var ops = new InstanceOperations<Instance>(client);
+            await ops.LockInstanceAsync("i-abcd1234");
+
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/lock");
+        }
+
+        [TestMethod]
+        public async Task LockInstanceAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.LockInstanceAsync(""));
+        }
+
+        [TestMethod]
+        public async Task UnlockInstanceAsync_ExpectedResult()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            var ops = new InstanceOperations<Instance>(client);
+            await ops.UnlockInstanceAsync("i-abcd1234");
+
+            await client.Received().PutAsync("/ecloud/v2/instances/i-abcd1234/unlock");
+        }
+
+        [TestMethod]
+        public async Task UnlockInstanceAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.UnlockInstanceAsync(""));
+        }
+
+        [TestMethod]
         public async Task PowerOnInstanceAsync_ExpectedResult()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -246,6 +284,183 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.PowerRestartInstanceAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceVolumesAsync_ExpectedResult()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAllAsync(Arg.Any<UKFastClient.GetPaginatedAsyncFunc<Volume>>(), null)
+                .Returns(Task.Run<IList<Volume>>(() => new List<Volume>()
+                    {
+                        new Volume(),
+                        new Volume()
+                    }));
+
+            var ops = new InstanceOperations<Instance>(client);
+            var volumes = await ops.GetInstanceVolumesAsync("i-abcd1234");
+
+            Assert.AreEqual(2, volumes.Count);
+        }
+
+        [TestMethod]
+        public async Task GetInstanceVolumesAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceVolumesAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceVolumesPaginatedAsync_ExpectedClientCall()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetPaginatedAsync<Volume>("/ecloud/v2/instances/i-abcd1234/volumes")
+                .Returns(Task.Run(() => new Paginated<Volume>(client, "/ecloud/v2/instances/i-abcd1234/volumes", null,
+                    new ClientResponse<IList<Volume>>()
+                            {
+                                Body = new ClientResponseBody<IList<Volume>>()
+                                {
+                                    Data = new List<Volume>()
+                                    {
+                                        new Volume(),
+                                        new Volume()
+                                    }
+                                }
+                            })));
+
+            var ops = new InstanceOperations<Instance>(client);
+            var paginated = await ops.GetInstanceVolumesPaginatedAsync("i-abcd1234");
+
+            Assert.AreEqual(2, paginated.Items.Count);
+        }
+
+        [TestMethod]
+        public async Task GetInstanceVolumesPaginatedAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceVolumesPaginatedAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceCredentialsAsync_ExpectedResult()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAllAsync(Arg.Any<UKFastClient.GetPaginatedAsyncFunc<Credential>>(), null)
+                .Returns(Task.Run<IList<Credential>>(() => new List<Credential>()
+                    {
+                        new Credential(),
+                        new Credential()
+                    }));
+
+            var ops = new InstanceOperations<Instance>(client);
+            var credentials = await ops.GetInstanceCredentialsAsync("i-abcd1234");
+
+            Assert.AreEqual(2, credentials.Count);
+        }
+
+        [TestMethod]
+        public async Task GetInstanceCredentialsAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceCredentialsAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceCredentialsPaginatedAsync_ExpectedClientCall()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetPaginatedAsync<Credential>("/ecloud/v2/instances/i-abcd1234/credentials")
+                .Returns(Task.Run(() => new Paginated<Credential>(client, "/ecloud/v2/instances/i-abcd1234/credentials", null,
+                    new ClientResponse<IList<Credential>>()
+                            {
+                                Body = new ClientResponseBody<IList<Credential>>()
+                                {
+                                    Data = new List<Credential>()
+                                    {
+                                        new Credential(),
+                                        new Credential()
+                                    }
+                                }
+                            })));
+
+            var ops = new InstanceOperations<Instance>(client);
+            var paginated = await ops.GetInstanceCredentialsPaginatedAsync("i-abcd1234");
+
+            Assert.AreEqual(2, paginated.Items.Count);
+        }
+
+        [TestMethod]
+        public async Task GetInstanceCredentialsPaginatedAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceCredentialsPaginatedAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceNICsAsync_ExpectedResult()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAllAsync(Arg.Any<UKFastClient.GetPaginatedAsyncFunc<NIC>>(), null)
+                .Returns(Task.Run<IList<NIC>>(() => new List<NIC>()
+                    {
+                        new NIC(),
+                        new NIC()
+                    }));
+
+            var ops = new InstanceOperations<Instance>(client);
+            var nic = await ops.GetInstanceNICsAsync("i-abcd1234");
+
+            Assert.AreEqual(2, nic.Count);
+        }
+
+        [TestMethod]
+        public async Task GetInstanceNICsAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceNICsAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceNICsPaginatedAsync_ExpectedClientCall()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetPaginatedAsync<NIC>("/ecloud/v2/instances/i-abcd1234/nics")
+                .Returns(Task.Run(() => new Paginated<NIC>(client, "/ecloud/v2/instances/i-abcd1234/nics", null, 
+                    new ClientResponse<IList<NIC>>()
+                            {
+                                Body = new ClientResponseBody<IList<NIC>>()
+                                {
+                                    Data = new List<NIC>()
+                                    {
+                                        new NIC(),
+                                        new NIC()
+                                    }
+                                }
+                            })));
+
+            var ops = new InstanceOperations<Instance>(client);
+            var paginated = await ops.GetInstanceNICsPaginatedAsync("i-abcd1234");
+
+            Assert.AreEqual(2, paginated.Items.Count);
+        }
+
+        [TestMethod]
+        public async Task GetInstanceNICsPaginatedAsync_InvalidInstanceID_ThrowsUKFastClientValidationException()
+        {
+            var ops = new InstanceOperations<Instance>(null);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceNICsPaginatedAsync(""));
         }
     }
 }

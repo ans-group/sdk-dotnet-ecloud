@@ -59,6 +59,26 @@ namespace UKFast.API.Client.ECloud.Operations
             await Client.DeleteAsync($"/ecloud/v2/instances/{instanceID}");
         }
 
+        public async Task LockInstanceAsync(string instanceID)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            await Client.PutAsync($"/ecloud/v2/instances/{instanceID}/lock");
+        }
+
+        public async Task UnlockInstanceAsync(string instanceID)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            await Client.PutAsync($"/ecloud/v2/instances/{instanceID}/unlock");
+        }
+
         public async Task PowerOnInstanceAsync(string instanceID)
         {
             if (string.IsNullOrWhiteSpace(instanceID))
@@ -107,6 +127,66 @@ namespace UKFast.API.Client.ECloud.Operations
             }
 
             await Client.PutAsync($"/ecloud/v2/instances/{instanceID}/power-restart");
+        }
+
+        public async Task<IList<Volume>> GetInstanceVolumesAsync(string instanceID, ClientRequestParameters parameters = null)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+            
+            return await Client.GetAllAsync(funcParams => GetInstanceVolumesPaginatedAsync(instanceID, funcParams), parameters);
+        }
+
+        public async Task<Paginated<Volume>> GetInstanceVolumesPaginatedAsync(string instanceID, ClientRequestParameters parameters = null)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            return await Client.GetPaginatedAsync<Volume>($"/ecloud/v2/instances/{instanceID}/volumes", parameters);
+        }
+
+        public async Task<IList<Credential>> GetInstanceCredentialsAsync(string instanceID, ClientRequestParameters parameters = null)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            return await Client.GetAllAsync(funcParams => GetInstanceCredentialsPaginatedAsync(instanceID, funcParams), parameters);
+        }
+
+        public async Task<Paginated<Credential>> GetInstanceCredentialsPaginatedAsync(string instanceID, ClientRequestParameters parameters = null)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            return await Client.GetPaginatedAsync<Credential>($"/ecloud/v2/instances/{instanceID}/credentials", parameters);
+        }
+
+        public async Task<IList<NIC>> GetInstanceNICsAsync(string instanceID, ClientRequestParameters parameters = null)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            return await Client.GetAllAsync(funcParams => GetInstanceNICsPaginatedAsync(instanceID, funcParams), parameters);
+        }
+
+        public async Task<Paginated<NIC>> GetInstanceNICsPaginatedAsync(string instanceID, ClientRequestParameters parameters = null)
+        {
+            if (string.IsNullOrWhiteSpace(instanceID))
+            {
+                throw new UKFastClientValidationException("Invalid instance id");
+            }
+
+            return await Client.GetPaginatedAsync<NIC>($"/ecloud/v2/instances/{instanceID}/nics", parameters);
         }
     }
 }
