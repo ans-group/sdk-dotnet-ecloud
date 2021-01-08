@@ -10,7 +10,7 @@ namespace UKFast.API.Client.ECloud.Models.V2.Request
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Name { get; set; }
 
-        [JsonProperty("sequence", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonProperty("sequence")]
         public int Sequence { get; set; }
     }
 }
