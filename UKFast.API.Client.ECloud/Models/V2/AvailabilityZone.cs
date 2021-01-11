@@ -14,7 +14,7 @@ namespace UKFast.API.Client.ECloud.Models.V2
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("datacenter_site_id")]
+        [JsonProperty("datacentre_site_id")]
         public int DatacentreSiteID { get; set; }
     }
 }
