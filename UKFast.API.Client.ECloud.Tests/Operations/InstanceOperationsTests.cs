@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
@@ -111,6 +113,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task GetInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<Instance>("/ecloud/v2/instances/i-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetInstanceAsync("i-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task UpdateInstanceAsync_ExpectedResult()
         {
             UpdateInstanceRequest req = new UpdateInstanceRequest()
@@ -135,6 +151,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task UpdateInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PatchAsync("/ecloud/v2/instances/i-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UpdateInstanceAsync("i-abcd1234", null));
+        }
+
+        [TestMethod]
         public async Task DeleteInstanceAsync_ValidParameters()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -151,6 +181,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.DeleteInstanceAsync(""));
+        }
+
+        [TestMethod]
+        public async Task DeleteInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.DeleteAsync("/ecloud/v2/instances/i-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.DeleteInstanceAsync("i-abcd1234"));
         }
 
         [TestMethod]
@@ -173,6 +217,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task LockInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/lock").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.LockInstanceAsync("i-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task UnlockInstanceAsync_ExpectedResult()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -189,6 +247,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.UnlockInstanceAsync(""));
+        }
+
+        [TestMethod]
+        public async Task UnlockInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/unlock").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UnlockInstanceAsync("i-abcd1234"));
         }
 
         [TestMethod]
@@ -211,6 +283,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task PowerOnInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/power-on").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.PowerOnInstanceAsync("i-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task PowerOffInstanceAsync_ExpectedResult()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -227,6 +313,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.PowerOffInstanceAsync(""));
+        }
+
+        [TestMethod]
+        public async Task PowerOffInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/power-off").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.PowerOffInstanceAsync("i-abcd1234"));
         }
 
         [TestMethod]
@@ -249,6 +349,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task PowerResetInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/power-reset").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.PowerResetInstanceAsync("i-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task PowerShutdownInstanceAsync_ExpectedResult()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -268,6 +382,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task PowerShutdownInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/power-shutdown").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.PowerShutdownInstanceAsync("i-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task PowerRestartInstanceAsync_ExpectedResult()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -284,6 +412,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.PowerRestartInstanceAsync(""));
+        }
+
+        [TestMethod]
+        public async Task PowerRestartInstanceAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PutAsync("/ecloud/v2/instances/i-abcd1234/power-restart").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.PowerRestartInstanceAsync("i-abcd1234"));
         }
 
         [TestMethod]
@@ -320,16 +462,16 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             client.GetPaginatedAsync<Volume>("/ecloud/v2/instances/i-abcd1234/volumes")
                 .Returns(Task.Run(() => new Paginated<Volume>(client, "/ecloud/v2/instances/i-abcd1234/volumes", null,
                     new ClientResponse<IList<Volume>>()
-                            {
-                                Body = new ClientResponseBody<IList<Volume>>()
-                                {
-                                    Data = new List<Volume>()
+                    {
+                        Body = new ClientResponseBody<IList<Volume>>()
+                        {
+                            Data = new List<Volume>()
                                     {
                                         new Volume(),
                                         new Volume()
                                     }
-                                }
-                            })));
+                        }
+                    })));
 
             var ops = new InstanceOperations<Instance>(client);
             var paginated = await ops.GetInstanceVolumesPaginatedAsync("i-abcd1234");
@@ -343,6 +485,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceVolumesPaginatedAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceVolumesPaginatedAsync_InstanceNotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetPaginatedAsync<Volume>("/ecloud/v2/instances/i-abcd1234/volumes").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetInstanceVolumesPaginatedAsync("i-abcd1234"));
         }
 
         [TestMethod]
@@ -379,16 +535,16 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             client.GetPaginatedAsync<Credential>("/ecloud/v2/instances/i-abcd1234/credentials")
                 .Returns(Task.Run(() => new Paginated<Credential>(client, "/ecloud/v2/instances/i-abcd1234/credentials", null,
                     new ClientResponse<IList<Credential>>()
-                            {
-                                Body = new ClientResponseBody<IList<Credential>>()
-                                {
-                                    Data = new List<Credential>()
+                    {
+                        Body = new ClientResponseBody<IList<Credential>>()
+                        {
+                            Data = new List<Credential>()
                                     {
                                         new Credential(),
                                         new Credential()
                                     }
-                                }
-                            })));
+                        }
+                    })));
 
             var ops = new InstanceOperations<Instance>(client);
             var paginated = await ops.GetInstanceCredentialsPaginatedAsync("i-abcd1234");
@@ -402,6 +558,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceCredentialsPaginatedAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceCredentialsPaginatedAsync_InstanceNotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetPaginatedAsync<Credential>("/ecloud/v2/instances/i-abcd1234/credentials").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetInstanceCredentialsPaginatedAsync("i-abcd1234"));
         }
 
         [TestMethod]
@@ -436,18 +606,18 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
 
             client.GetPaginatedAsync<NIC>("/ecloud/v2/instances/i-abcd1234/nics")
-                .Returns(Task.Run(() => new Paginated<NIC>(client, "/ecloud/v2/instances/i-abcd1234/nics", null, 
+                .Returns(Task.Run(() => new Paginated<NIC>(client, "/ecloud/v2/instances/i-abcd1234/nics", null,
                     new ClientResponse<IList<NIC>>()
-                            {
-                                Body = new ClientResponseBody<IList<NIC>>()
-                                {
-                                    Data = new List<NIC>()
+                    {
+                        Body = new ClientResponseBody<IList<NIC>>()
+                        {
+                            Data = new List<NIC>()
                                     {
                                         new NIC(),
                                         new NIC()
                                     }
-                                }
-                            })));
+                        }
+                    })));
 
             var ops = new InstanceOperations<Instance>(client);
             var paginated = await ops.GetInstanceNICsPaginatedAsync("i-abcd1234");
@@ -461,6 +631,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new InstanceOperations<Instance>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetInstanceNICsPaginatedAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetInstanceNICsPaginatedAsync_InstanceNotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetPaginatedAsync<NIC>("/ecloud/v2/instances/i-abcd1234/nics").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new InstanceOperations<Instance>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetInstanceNICsPaginatedAsync("i-abcd1234"));
         }
     }
 }

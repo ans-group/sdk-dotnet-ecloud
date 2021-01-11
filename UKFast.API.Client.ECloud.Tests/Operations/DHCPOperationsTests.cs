@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
 using UKFast.API.Client.Exception;
@@ -83,6 +85,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new DHCPOperations<DHCP>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetDHCPAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetDHCPAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<DHCP>("/ecloud/v2/dhcps/dhcp-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new DHCPOperations<DHCP>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetDHCPAsync("dhcp-abcd1234"));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
@@ -108,6 +110,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task GetRouterAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<Router>("/ecloud/v2/routers/rtr-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new RouterOperations<Router>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetRouterAsync("rtr-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task UpdateRouterAsync_ExpectedResult()
         {
             UpdateRouterRequest req = new UpdateRouterRequest()
@@ -132,6 +148,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task UpdateRouterAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PatchAsync("/ecloud/v2/routers/rtr-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new RouterOperations<Router>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UpdateRouterAsync("rtr-abcd1234", null));
+        }
+
+        [TestMethod]
         public async Task DeleteRouterAsync_ValidParameters()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -148,6 +178,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new RouterOperations<Router>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.DeleteRouterAsync(""));
+        }
+
+        [TestMethod]
+        public async Task DeleteRouterAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.DeleteAsync("/ecloud/v2/routers/rtr-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new RouterOperations<Router>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.DeleteRouterAsync("rtr-abcd1234"));
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
 using UKFast.API.Client.Exception;
@@ -84,6 +86,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new FirewallRuleOperations<FirewallRule>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetFirewallRuleAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetFirewallRuleAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<FirewallRule>("/ecloud/v2/firewall-rules/fwr-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new FirewallRuleOperations<FirewallRule>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetFirewallRuleAsync("fwr-abcd1234"));
         }
     }
 }
