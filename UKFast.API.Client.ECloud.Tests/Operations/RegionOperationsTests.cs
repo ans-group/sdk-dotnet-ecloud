@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
 using UKFast.API.Client.Exception;
@@ -83,6 +85,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new RegionOperations<Region>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetRegionAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetRegionAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<Region>("/ecloud/v2/regions/reg-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new RegionOperations<Region>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetRegionAsync("reg-abcd1234"));
         }
     }
 }

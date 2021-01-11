@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
 using UKFast.API.Client.ECloud.Operations;
@@ -108,6 +110,21 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task GetVPNAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<VPN>("/ecloud/v2/vpns/vpn-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new VPNOperations<VPN>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetVPNAsync("vpn-abcd1234"));
+        }
+
+
+        [TestMethod]
         public async Task UpdateVPNAsync_ExpectedResult()
         {
             UpdateVPNRequest req = new UpdateVPNRequest()
@@ -132,6 +149,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task UpdateVPNAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PatchAsync("/ecloud/v2/vpns/vpn-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new VPNOperations<VPN>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UpdateVPNAsync("vpn-abcd1234", null));
+        }
+
+        [TestMethod]
         public async Task DeleteVPNAsync_ValidParameters()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -148,6 +179,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new VPNOperations<VPN>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.DeleteVPNAsync(""));
+        }
+
+        [TestMethod]
+        public async Task DeleteVPNAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.DeleteAsync("/ecloud/v2/vpns/vpn-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new VPNOperations<VPN>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.DeleteVPNAsync("vpn-abcd1234"));
         }
     }
 }

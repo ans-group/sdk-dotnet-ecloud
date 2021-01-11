@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
 using UKFast.API.Client.ECloud.Operations;
@@ -108,6 +110,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task GetVPCAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<VPC>("/ecloud/v2/vpcs/vpc-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new VPCOperations<VPC>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetVPCAsync("vpc-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task UpdateVPCAsync_ExpectedResult()
         {
             UpdateVPCRequest req = new UpdateVPCRequest()
@@ -132,6 +148,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task UpdateVPCAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PatchAsync("/ecloud/v2/vpcs/vpc-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new VPCOperations<VPC>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UpdateVPCAsync("vpc-abcd1234", null));
+        }
+
+        [TestMethod]
         public async Task DeleteVPCAsync_ValidParameters()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -149,5 +179,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.DeleteVPCAsync(""));
         }
+
+        [TestMethod]
+        public async Task DeleteVPCAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.DeleteAsync("/ecloud/v2/vpcs/vpc-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new VPCOperations<VPC>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.DeleteVPCAsync("vpc-abcd1234"));
+        }
+
     }
 }

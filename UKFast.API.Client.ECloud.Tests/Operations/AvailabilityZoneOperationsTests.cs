@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using NSubstitute.Routing.Handlers;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
@@ -85,6 +87,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new AvailabilityZoneOperations<AvailabilityZone>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetAvailabilityZoneAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetAvailabilityZoneAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<AvailabilityZone>("/ecloud/v2/availability-zones/az-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new AvailabilityZoneOperations<AvailabilityZone>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetAvailabilityZoneAsync("az-abcd1234"));
         }
     }
 }

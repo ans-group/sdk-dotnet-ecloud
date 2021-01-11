@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
 using UKFast.API.Client.ECloud.Operations;
@@ -108,6 +110,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task GetFirewallPolicyAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<FirewallPolicy>("/ecloud/v2/firewall-policies/fwp-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new FirewallPolicyOperations<FirewallPolicy>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetFirewallPolicyAsync("fwp-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task UpdateFirewallPolicyAsync_ExpectedResult()
         {
             UpdateFirewallPolicyRequest req = new UpdateFirewallPolicyRequest()
@@ -132,6 +148,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task UpdateFirewallPolicyAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PatchAsync("/ecloud/v2/firewall-policies/fwp-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new FirewallPolicyOperations<FirewallPolicy>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UpdateFirewallPolicyAsync("fwp-abcd1234", null));
+        }
+
+        [TestMethod]
         public async Task DeleteFirewallPolicyAsync_ValidParameters()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -148,6 +178,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new FirewallPolicyOperations<FirewallPolicy>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.DeleteFirewallPolicyAsync(""));
+        }
+
+        [TestMethod]
+        public async Task DeleteFirewallPolicyAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.DeleteAsync("/ecloud/v2/firewall-policies/fwp-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new FirewallPolicyOperations<FirewallPolicy>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.DeleteFirewallPolicyAsync("fwp-abcd1234"));
         }
     }
 }

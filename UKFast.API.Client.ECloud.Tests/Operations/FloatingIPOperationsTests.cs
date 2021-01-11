@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using NSubstitute.Routing.Handlers;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Operations;
 using UKFast.API.Client.Exception;
@@ -85,6 +86,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new FloatingIPOperations<FloatingIP>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.GetFloatingIPAsync(""));
+        }
+
+        [TestMethod]
+        public async Task GetFloatingIPAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<FloatingIP>("/ecloud/v2/floating-ips/fip-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new FloatingIPOperations<FloatingIP>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetFloatingIPAsync("fip-abcd1234"));
         }
     }
 }

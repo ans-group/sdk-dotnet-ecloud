@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 using UKFast.API.Client.ECloud.Models.V2;
 using UKFast.API.Client.ECloud.Models.V2.Request;
 using UKFast.API.Client.ECloud.Operations;
@@ -108,6 +110,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task GetLoadBalancerClusterAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.GetAsync<LoadBalancerCluster>("/ecloud/v2/lbcs/lbc-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new LoadBalancerOperations<LoadBalancerCluster>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.GetLoadBalancerClusterAsync("lbc-abcd1234"));
+        }
+
+        [TestMethod]
         public async Task UpdateLoadBalancerClusterAsync_ExpectedResult()
         {
             UpdateLoadBalancerClusterRequest req = new UpdateLoadBalancerClusterRequest()
@@ -132,6 +148,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         }
 
         [TestMethod]
+        public async Task UpdateLoadBalancerClusterAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.PatchAsync("/ecloud/v2/lbcs/lbc-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new LoadBalancerOperations<LoadBalancerCluster>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.UpdateLoadBalancerClusterAsync("lbc-abcd1234", null));
+        }
+
+        [TestMethod]
         public async Task DeleteLoadBalancerClusterAsync_ValidParameters()
         {
             IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
@@ -148,6 +178,20 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             var ops = new LoadBalancerOperations<LoadBalancerCluster>(null);
 
             await Assert.ThrowsExceptionAsync<UKFastClientValidationException>(() => ops.DeleteLoadBalancerClusterAsync(""));
+        }
+
+        [TestMethod]
+        public async Task DeleteLoadBalancerClusterAsync_NotFound_ThrowsUKFastClientNotFoundRequestException()
+        {
+            IUKFastECloudClient client = Substitute.For<IUKFastECloudClient>();
+
+            client.DeleteAsync("/ecloud/v2/lbcs/lbc-abcd1234").Throws(
+                new UKFastClientNotFoundRequestException(
+                    new Collection<ClientResponseError> { new ClientResponseError { Status = 404 } }));
+
+            var ops = new LoadBalancerOperations<LoadBalancerCluster>(client);
+
+            await Assert.ThrowsExceptionAsync<UKFastClientNotFoundRequestException>(() => ops.DeleteLoadBalancerClusterAsync("lbc-abcd1234"));
         }
     }
 }
