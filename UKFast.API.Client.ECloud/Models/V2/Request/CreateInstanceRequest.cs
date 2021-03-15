@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace UKFast.API.Client.ECloud.Models.V2.Request
 {
@@ -10,11 +11,11 @@ namespace UKFast.API.Client.ECloud.Models.V2.Request
         [JsonProperty("vpc_id")]
         public string VPCID { get; set; }
 
-        [JsonProperty("appliance_id")]
-        public string ApplianceID { get; set; }
+        [JsonProperty("image_id")]
+        public string ImageID { get; set; }
 
-        [JsonProperty("appliance_data", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ApplianceData { get; set; }
+        [JsonProperty("image_data", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Dictionary<string, object> ImageData { get; set; }
 
         [JsonProperty("vcpu_cores")]
         public int VCPUCores { get; set; }

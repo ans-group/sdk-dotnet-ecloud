@@ -74,9 +74,9 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
             });
 
             var ops = new RegionOperations<Region>(client);
-            var appliance = await ops.GetRegionAsync(regionID);
+            var region = await ops.GetRegionAsync(regionID);
 
-            Assert.AreEqual("reg-abcd1234", appliance.ID);
+            Assert.AreEqual("reg-abcd1234", region.ID);
         }
 
         [TestMethod]

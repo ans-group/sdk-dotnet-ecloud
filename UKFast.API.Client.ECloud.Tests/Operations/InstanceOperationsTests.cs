@@ -21,7 +21,7 @@ namespace UKFast.API.Client.ECloud.Tests.Operations
         {
             CreateInstanceRequest req = new CreateInstanceRequest()
             {
-                ApplianceID = "00000000-0000-0000-0000-000000000000",
+                ImageID = "img-abcdef",
                 Name = "test instance",
                 RAMCapacity = 2,
                 VCPUCores = 2

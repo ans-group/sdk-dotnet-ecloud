@@ -260,4 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /.vs
-/UKFast.API.Client.DDoSX/obj
+.vscode/

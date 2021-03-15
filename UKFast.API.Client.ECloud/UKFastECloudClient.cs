@@ -154,6 +154,21 @@ namespace UKFast.API.Client.ECloud
             return new FloatingIPOperations<FloatingIP>(this);
         }
 
+        public IImageOperations<Image> ImageOperations()
+        {
+            return new ImageOperations<Image>(this);
+        }
+
+        public IImageParameterOperations<ImageParameter> ImageParameterOperations()
+        {
+            return new ImageParameterOperations<ImageParameter>(this);
+        }
+
+        public IImageMetadataOperations<ImageMetadata> ImageMetadataOperations()
+        {
+            return new ImageMetadataOperations<ImageMetadata>(this);
+        }
+
         public IInstanceOperations<Instance> InstanceOperations()
         {
             return new InstanceOperations<Instance>(this);
