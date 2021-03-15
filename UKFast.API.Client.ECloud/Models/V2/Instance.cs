@@ -19,8 +19,8 @@ namespace UKFast.API.Client.ECloud.Models.V2
         [JsonProperty("availability_zone_id")]
         public string AvailabilityZoneID { get; set; }
 
-        [JsonProperty("appliance_id")]
-        public string ApplianceID { get; set; }
+        [JsonProperty("image_id")]
+        public string ImageID { get; set; }
 
         [JsonProperty("vcpu_cores")]
         public int VCPUCores { get; set; }

@@ -62,6 +62,12 @@ namespace UKFast.API.Client.ECloud
 
         IFloatingOperations<FloatingIP> FloatingIPOperations();
 
+        IImageOperations<Image> ImageOperations();
+
+        IImageParameterOperations<ImageParameter> ImageParameterOperations();
+
+        IImageMetadataOperations<ImageMetadata> ImageMetadataOperations();
+
         IInstanceOperations<Instance> InstanceOperations();
 
         INetworkOperations<Network> NetworkOperations();
