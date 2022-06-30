@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>ANS</Authors>
+    <Company>ANS</Company>
+    <Description>Client for interacting with ANS eCloud</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/ans-group/sdk-dotnet-ecloud/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ans-group/sdk-dotnet-ecloud</PackageProjectUrl>
+    <PackageTags>sdk, client, ans, ecloud</PackageTags>
+    <Version>1.0.10</Version>
+    <AssemblyVersion>1.0.10.0</AssemblyVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ANS.API.Client.Core" Version="1.0.4" />
+  </ItemGroup>
+
+</Project>
